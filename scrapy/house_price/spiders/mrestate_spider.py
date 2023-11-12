@@ -5,7 +5,16 @@ import re
 class MrestateSpider(scrapy.Spider):
     name = "mrestate"
 
-    start_urls = ["https://mrestate.ir/f/tehran/buy_residential_apartment"]
+    start_urls = [
+        "https://mrestate.ir/f/tehran/buy_residential_apartment",
+        "https://mrestate.ir/f/tehran/buy_residential_tower",
+        "https://mrestate.ir/f/tehran/buy_residential_penthouses",
+        "https://mrestate.ir/f/tehran/buy_residential_old-building",
+        "https://mrestate.ir/f/tehran/buy_residential_tenement",
+        "https://mrestate.ir/f/tehran/buy_residential_land",
+        "https://mrestate.ir/f/tehran/buy_residential_suite",
+        "https://mrestate.ir/f/tehran/buy_residential_villa"
+    ]
 
     def parse(self, response):
         detail_page_links = response.css("article.w-full.px-4.py-5 a")
@@ -28,9 +37,8 @@ class MrestateSpider(scrapy.Spider):
 
         real_estate_area = int(re.findall(
             r"\d+", features[0])[0]) if features_length > 0 else None
-        real_estate_age = 1402 - \
-            int(re.findall(r"\d+", features[1])[0]
-                ) if features_length > 1 else None
+        real_estate_age = (1402 - (int(re.findall(r"\d+", features[1])[0]))
+                           ) if features_length > 1 else None
         total_rooms = int(re.findall(
             r"\d+", features[2])[0]) if features_length > 2 else None
         floor = int(re.findall(
