@@ -88,6 +88,7 @@ class DivarSeleniumSpider(scrapy.Spider):
 
     def parse_detail(self, response):
         district_name = None
+        real_estate_type = None
         real_estate_area = None
         real_estate_age = None
         total_rooms = None
@@ -107,6 +108,8 @@ class DivarSeleniumSpider(scrapy.Spider):
         detail_data = json.loads(response.body.decode('utf-8'))
 
         district_name = detail_data['data']['district']
+
+        real_estate_type = detail_data['data']['category']['slug']
 
         for data in detail_data['widgets']['list_data']:
             if data['title'] == "اطلاعات":
@@ -161,6 +164,7 @@ class DivarSeleniumSpider(scrapy.Spider):
 
         yield {
             "district_name": district_name,
+            "real_estate_type": real_estate_type,
             "real_estate_area": real_estate_area,
             "real_estate_age": real_estate_age,
             "total_rooms": total_rooms,
