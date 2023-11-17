@@ -56,6 +56,10 @@ class DivarSeleniumSpider(scrapy.Spider):
             sleep(2)
 
     def parse_detail(self, response):
+        title = None
+        description1 = None
+        description2 = None
+        description3 = None
         district_name = None
         real_estate_type = None
         real_estate_area = None
@@ -75,6 +79,12 @@ class DivarSeleniumSpider(scrapy.Spider):
         facilities = []
 
         detail_data = json.loads(response.body.decode('utf-8'))
+
+        title = detail_data['data']['seo']['title']
+
+        description1 = detail_data['data']['seo'].get('description')
+        description2 = detail_data['data']['share'].get('description')
+        description3 = detail_data['data'].get('description')
 
         district_name = detail_data['data']['district']
 
@@ -132,6 +142,10 @@ class DivarSeleniumSpider(scrapy.Spider):
                                 facilities.append(facility['data']['title'])
 
         yield {
+            "title": title,
+            "description1": description1,
+            "description2": description2,
+            "description3": description3,
             "district_name": district_name,
             "real_estate_type": real_estate_type,
             "real_estate_area": real_estate_area,
