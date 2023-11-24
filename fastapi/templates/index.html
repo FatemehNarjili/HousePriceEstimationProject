@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Estimation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #response {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Additional styles for a different theme */
+
+        /* Form container */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Form fields */
+        .form-field {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-field label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: #fff;
+            padding: 0 5px;
+            color: #007bff;
+            font-size: 12px;
+        }
+
+        .form-field input[type="number"],
+        .form-field select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Submit button */
+        .submit-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Response section */
+        .response-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>House Price Estimation</h1>
+    <form id="qna-form">
+        <label for="district_name">District Name:</label>
+        <input id="district_name" name="district_name" required><br><br>
+
+        <label for="longitude">Longitude:</label>
+        <input type="number" id="longitude" name="longitude" step=".0000001" required><br><br>
+
+        <label for="latitude">Latitude:</label>
+        <input type="number" id="latitude" name="latitude" step=".0000001" required><br><br>
+
+        <label for="real_estate_area">Real Estate Area:</label>
+        <input type="number" id="real_estate_area" name="real_estate_area" min="0" step=".01" required><br><br>
+
+        <label for="real_estate_age">Real Estate Age:</label>
+        <input type="number" id="real_estate_age" name="real_estate_age" min="0" required><br><br>
+
+        <label for="total_rooms">Total Rooms:</label>
+        <input type="number" id="total_rooms" name="total_rooms" min="0" required><br><br>
+
+        <label for="floor">Floor:</label>
+        <input type="number" id="floor" name="floor" min="-1" required><br><br>
+
+        <label for="elevator">Elevator</label>
+        <select name="elevator">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="parking">Parking</label>
+        <select name="parking">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="warehouse">Warehouse</label>
+        <select name="warehouse">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+
+        <label for="balcony">Balcony</label>
+        <select name="balcony">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="pool">Pool</label>
+        <select name="pool">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="roof_garden">Roof Garden</label>
+        <select name="roof_garden">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="lobby">Lobby</label>
+        <select name="lobby">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+
+        <label for="lobby_man">Lobby Man</label>
+        <select name="lobby_man">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+
+        <label for="sauna">Sauna</label>
+        <select name="sauna">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="jacuzzi">Jacuzzi</label>
+        <select name="jacuzzi">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+
+        <label for="gym">Gym</label>
+        <select name="gym">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="central_Vacuume_cleaner">Central Vacuume Cleaner</label>
+        <select name="central_Vacuume_cleaner">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="janitor">Janitor</label>
+        <select name="janitor">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="Guard">Guard</label>
+        <select name="Guard">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="master_room">Master Room</label>
+        <select name="master_room">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <label for="conference_hall">Conference Hall</label>
+        <select name="conference_hall">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select><br><br>
+
+        <button type="submit">Get Price Estimate</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
